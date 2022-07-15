@@ -60,6 +60,7 @@ int main() {
 
     std::list<int> fila {};
 
+
     for (int preenche = 1; preenche <= qtdPessoas; preenche++) {
         if (fase == -1) {
             if (espada == preenche) espada *= -1;
@@ -71,7 +72,9 @@ int main() {
         }
     }
     
+
     auto itEspadachim = fila.begin();
+
 
     for (auto it = fila.begin(); it != fila.end(); it++) {
         if (*it == espada) {
@@ -79,6 +82,7 @@ int main() {
             break;
         }
     }
+
 
     while (true) {
         imprime(fila, espada);
