@@ -7,11 +7,11 @@
 using namespace std;
 
 struct Node {
-    int value;
-    Node* left;
-    Node* right;
+    int valor;
+    Node* esquerda;
+    Node* direita;
 
-    Node(int value, Node* left = nullptr, Node* right = nullptr) : value(value), left(left), right(right) {}
+    Node(int valor, Node* esquerda = nullptr, Node* direita = nullptr) : valor(valor), esquerda(esquerda), direita(direita) {}
 };
 
 struct BTree {
@@ -22,23 +22,23 @@ struct BTree {
     BTree(string &serial) {      
         stringstream ss(serial);
         
-        this->root = extract_serial(ss);
+        this->root = ext_serial(ss);
     }
 
-    Node* extract_serial(stringstream &ss) {
-        string element {};
-        ss >> element;
+    Node* ext_serial(stringstream &ss) {
+        string elemento {};
+        ss >> elemento;
 
-        if (element == "#") {
+        if (elemento == "#") {
             return nullptr;
         }
         
-        int value = stoi(element);
+        int valor = stoi(elemento);
         
-        Node* node = new Node(value);
+        Node* node = new Node(valor);
 
-        node->left = extract_serial(ss);
-        node->right = extract_serial(ss); 
+        node->esquerda = ext_serial(ss);
+        node->direita = ext_serial(ss); 
         
         return node;
     }
@@ -46,38 +46,37 @@ struct BTree {
     ~BTree() {
         __Destruir(this->root);
     }
-
+    //destruir
     void __Destruir(Node* node) {
         if (node == nullptr) {
             return;
         }
-
-        __Destruir(node->left);
-        __Destruir(node->right);
+        __Destruir(node->esquerda);
+        __Destruir(node->direita);
 
         delete node;
     }
 
-    void show() {
-        __show(this->root);
+    void mostra() {
+        __mostra(this->root);
     }
 
-    void __show(Node* node, int level = 0) {
+    void __mostra(Node* node, int level = 0) {
         if (node == nullptr) {
             cout << string(level * 4, '.')  << "#" << endl;
             return;
         }
 
-        if (node->left != nullptr || node->right != nullptr) {
-            __show(node->left, level + 1);
+        if (node->esquerda != nullptr || node->direita != nullptr) {
+            __mostra(node->esquerda, level + 1);
 
-            cout << string(level * 4, '.') << node->value << endl;
+            cout << string(level * 4, '.') << node->valor << endl;
 
-            __show(node->right, level + 1);
+            __mostra(node->direita, level + 1);
 
             return;
         } 
         
-        cout << string(level * 4, '.') << node->value << endl;
+        cout << string(level * 4, '.') << node->valor << endl;
     }
 };

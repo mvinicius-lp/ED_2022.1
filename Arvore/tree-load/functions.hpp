@@ -4,119 +4,121 @@
 #include <iostream>
 #include <sstream>
 
+using namespace std;
+//define o nó
 struct Node {
-    int value;
-    Node* left;
-    Node* right;
+    int valor;
+    Node* esquerda;
+    Node* direita;
 
-    Node(int value, Node* left = nullptr, Node* right = nullptr) : value(value), left(left), right(right) {}
+    Node(int valor, Node* esquerda = nullptr, Node* direita = nullptr) : valor(valor), esquerda(esquerda), direita(direita) {}
 };
 
-struct BTree {
+struct arv {
     Node* root {nullptr};
 
-    BTree() {}
+    arv() {}
 
-    BTree(std::string &serial) {      
-        std::stringstream ss(serial);
+    arv(string &serial) {      
+        stringstream ss(serial);
         
-        this->root = extract_serial(ss);
+        this->root = ext_serial(ss);
     }
 
-    ~BTree() {
-        __destroy(this->root);
+    ~arv() {
+        destruir(this->root);
     }
 
-    void __destroy(Node* node) {
+    void destruir(Node* node) {
         if (node == nullptr) {
             return;
         }
 
-        __destroy(node->left);
-        __destroy(node->right);
+        destruir(node->esquerda);
+        destruir(node->direita);
 
         delete node;
     }
 
-    Node* extract_serial(std::stringstream &ss) {
-        std::string element {};
-        ss >> element;
+    Node* ext_serial(stringstream &ss) {
+        string elemento {};
+        ss >> elemento;
 
-        if (element == "#") {
+        if (elemento == "#") {
             return nullptr;
         }
         
-        int value = std::stoi(element);
+        int valor = stoi(elemento);
         
-        Node* node = new Node(value);
+        Node* node = new Node(valor);
 
-        node->left = extract_serial(ss);
-        node->right = extract_serial(ss); 
+        node->esquerda = ext_serial(ss);
+        node->direita = ext_serial(ss); 
         
         return node;
     }
 
-    ~BTree() {
-        __destroy(this->root);
+    ~arv() {
+        destruir(this->root);
     }
 
-    void __destroy(Node* node) {
+    void destruir(Node* node) {
         if (node == nullptr) {
             return;
         }
 
-        __destroy(node->left);
-        __destroy(node->right);
+        destruir(node->esquerda);
+        destruir(node->direita);
 
         delete node;
     }
 
-    void show() {
-        __show(this->root);
+    void mostra() {
+        mostrar(this->root);
     }
 
-    void __show(Node* node, std::string heranca = "") {
-        if(node != nullptr && (node->left != nullptr || node->right != nullptr)) {
-            __show(node->left, heranca + "l");
+    void mostrar(Node* node, string heranca = "") {
+        if(node != nullptr && (node->esquerda != nullptr || node->direita != nullptr)) {
+            mostrar(node->esquerda, heranca + "l");
         } 
 
         for (int index = 0; index < (int) heranca.size() - 1; index++) {
-            std::cout << (heranca[index] != heranca[index + 1] ? "│   " : "    ");
+            cout << (heranca[index] != heranca[index + 1] ? "│   " : "    ");
         }
 
         if (heranca != "") {
-            std::cout << (heranca.back() == 'l' ? "┌───" : "└───");
+            cout << (heranca.back() == 'l' ? "┌───" : "└───");
         }
 
         if (node == nullptr) {
-            std::cout << "#" << std::endl;
+            cout << "#" << endl;
             return;
         }
 
-        std::cout << node->value << std::endl;
+        cout << node->valor << endl;
 
-        if (node != nullptr && (node->left != nullptr || node->right != nullptr)) {
-            __show(node->right, heranca + "r");
+        if (node != nullptr && (node->esquerda != nullptr || node->direita != nullptr)) {
+            mostrar(node->direita, heranca + "r");
         }
     }
 
-    void show_in_order() {
-        std::cout << "[ ";
+    void mostrar_ordem() {
+        cout << "[ ";
         
-        __show_in_order(root);
+        _mostra_ordem(root);
 
-        std::cout << "]\n";
+        cout << "]\n";
     }
 
-    void __show_in_order(Node * node) {
+    void _mostra_ordem(Node * node) {
         if(node == nullptr) {
             return;
         }
 
-        __show_in_order(node->left);
+        _mostra_ordem(node->esquerda);
 
-        std::cout << node->value << " ";
+        cout << node->valor << " ";
 
-        __show_in_order(node->right);
+        _mostra_ordem(node->direita);
     }
 };

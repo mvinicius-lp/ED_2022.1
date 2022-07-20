@@ -3,98 +3,100 @@
 #include <iostream>
 #include <sstream>
 
+using namespace std;
+
 
 struct Node {
-    int value;
-    Node* left;
-    Node* right;
+    int valor;
+    Node* esquerda;
+    Node* direita;
 
-    Node(int value, Node* left = nullptr, Node* right = nullptr) : value(value), left(left), right(right) {}
+    Node(int valor, Node* esquerda = nullptr, Node* direita = nullptr) : valor(valor), esquerda(esquerda), direita(direita) {}
 };
 
-struct BTree {
+struct arv {
     Node* root {nullptr};
 
-    BTree() {};
+    arv() {};
 
-    BTree(std::string &serial) {
-        std::stringstream ss(serial);
+    arv(string &serial) {
+        stringstream ss(serial);
 
-        root = extract_serial(ss);
+        root = ext_serial(ss);
     }
-
-    ~BTree() {
-        __destroy(this->root);
+    //destruir raiz
+    ~arv() {
+        destruir(this->root);
     }
-
-    void __destroy(Node* node) {
+    //destruir nó
+    void destruir(Node* node) {
         if (node == nullptr) {
             return;
         }
 
-        __destroy(node->left);
-        __destroy(node->right);
+        destruir(node->esquerda);
+        destruir(node->direita);
 
         delete node;
     }
 
-    Node* extract_serial(std::stringstream &ss) {
-        std::string element{};
-        ss >> element;
+    Node* ext_serial(stringstream &ss) {
+        string elemento{};
+        ss >> elemento;
 
-        if (element == "#") {
+        if (elemento == "#") {
             return nullptr;
         }
 
-        int value = std::stoi(element);
+        int valor = stoi(elemento);
 
-        Node* node = new Node(value);
+        Node* node = new Node(valor);
 
-        node->left = extract_serial(ss);
-        node->right = extract_serial(ss);
+        node->esquerda = ext_serial(ss);
+        node->direita = ext_serial(ss);
 
         return node;
     }
-
-    Node* find(int value) {
-        return _find(value, root); 
+    //encontrar passando o valor
+    Node* encontrar(int valor) {
+        return _encontrar(valor, root); 
     }
 
-    Node* _find(int value, Node* node) {
+    Node* _encontrar(int valor, Node* node) {
         if (node == nullptr) return nullptr;
-        else if (node->value == value) return node;
+        else if (node->valor == valor) return node;
 
-        auto sonsL = _find(value, node->left);
-        auto sonsR = _find(value, node->right);
+        auto sonsE = _encontrar(valor, node->esquerda);
+        auto sonsD = _encontrar(valor, node->direita);
 
-        return sonsL != nullptr ? sonsL : sonsR;
+        return sonsE != nullptr ? sonsE : sonsD;
     }
 
-    int getHigh(Node* node) {
+    int getCima(Node* node) {
         if (node == nullptr) {
             return 0;
         } 
 
-        int sonsL = getHigh(node->left);
-        int sonsR = getHigh(node->right);
+        int sonsE = getCima(node->esquerda);
+        int sonsD = getCima(node->direita);
 
-        return 1 + std::max(sonsL, sonsR);
+        return 1 + max(sonsE, sonsD);
     }
 
-    int getDeep(int value) {
-        return _getDeep(value, root);
+    int getBaixo(int valor) {
+        return _getBaixo(valor, root);
     }
 
-    int _getDeep(int value, Node* node) {
+    int _getBaixo(int valor, Node* node) {
         if (node == nullptr) {
             return 0;
-        } else if (node->value == value) {
+        } else if (node->valor == valor) {
             return 1;
         }
 
-        int sonsL = _getDeep(value, node->left);
-        int sonsR = _getDeep(value, node->right);
+        int sonsE = _getBaixo(valor, node->esquerda);
+        int sonsD = _getBaixo(valor, node->direita);
 
-        return sonsL == sonsR ? 0 : std::max(sonsL, sonsR) + 1;
+        return sonsE == sonsD ? 0 : max(sonsE, sonsD) + 1;
     }
 };

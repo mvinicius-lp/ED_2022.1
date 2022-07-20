@@ -1,16 +1,18 @@
 #include <iostream>
 #include "functions.hpp"
 
+using namespace std;
+
 int main() {
-    std::string line {};
+    string line {};
 
-    getline(std::cin, line);
+    getline(cin, line);
 
-    BTree tree(line);
+    arv tree(line);
 
-    std::cout << std::endl;
+    cout << endl;
 
-    std::cout << tree.sum() << " " << tree.min() << std::endl;
+    cout << tree.soma() << " " << tree.min() << endl;
     
     return 0;
 }

@@ -1,18 +1,20 @@
 #include <iostream>
 #include "functions.hpp"
 
-int main() {
-    std::string line {};
+using namespace std;
 
-    getline(std::cin, line);
+int main() {
+    string line {};
+
+    getline(cin, line);
 
     BTree tree(line);
 
-    int value;
+    int valor;
 
-    std::cin >> value;
+    cin >> valor;
 
-    std::cout << std::endl << tree.find_path(value) << std::endl;
+    cout << endl << tree.encontra_path(valor) << endl;
 
     return 0;
 }

@@ -1,16 +1,18 @@
 #include <iostream>
 #include "functions.hpp"
 
-int main() {
-    std::string line {};
+using namespace std;
 
-    getline(std::cin, line);
+int main() {
+    string line {};
+
+    getline(cin, line);
 
     BTree tree(line);
 
-    std::cout << std::endl;
+    cout << endl;
     
-    tree.show();
+    tree.mostra();
     
     return 0;
 }

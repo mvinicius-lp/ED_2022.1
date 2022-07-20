@@ -4,12 +4,14 @@
 #include <iostream>
 #include <sstream>
 
-struct Node {
-    int value;
-    Node* left;
-    Node* right;
+using namespace std;
 
-    Node(int value, Node* left = nullptr, Node* right = nullptr) : value(value), left(left), right(right) {}
+struct Node {
+    int valor;
+    Node* esquerda;
+    Node* direita;
+
+    Node(int valor, Node* esquerda = nullptr, Node* direita = nullptr) : valor(valor), esquerda(esquerda), direita(direita) {}
 };
 
 struct BTree {
@@ -17,66 +19,67 @@ struct BTree {
 
     BTree() {};
 
-    BTree(std::string &serial) {
-        std::stringstream ss(serial);
+    BTree(string &serial) {
+        stringstream ss(serial);
 
-        root = extract_serial(ss);
+        root = ext_serial(ss);
     }
 
+    //destruir
     ~BTree() {
-        __destroy(this->root);
+        destruir(this->root);
     }
 
-    void __destroy(Node* node) {
+    void destruir(Node* node) {
         if (node == nullptr) {
             return;
         }
 
-        __destroy(node->left);
-        __destroy(node->right);
+        destruir(node->esquerda);
+        destruir(node->direita);
 
         delete node;
     }
 
-    Node* extract_serial(std::stringstream &ss) {
-        std::string element{};
-        ss >> element;
+    Node* ext_serial(stringstream &ss) {
+        string elemento{};
+        ss >> elemento;
 
-        if (element == "#") {
+        if (elemento == "#") {
             return nullptr;
         }
 
-        int value = std::stoi(element);
+        int valor = stoi(elemento);
 
-        Node* node = new Node(value);
+        Node* node = new Node(valor);
 
-        node->left = extract_serial(ss);
-        node->right = extract_serial(ss);
+        node->esquerda = ext_serial(ss);
+        node->direita = ext_serial(ss);
 
         return node;
     }
 
-    std::string find_path(int value) {
-        return _find_path(root, value);
+    string encontra_path(int valor) {
+        return _encontra_path(root, valor);
     }
 
-    std::string _find_path(Node* node, int value) {
+    string _encontra_path(Node* node, int valor) {
         if (node == nullptr) {
             return "";
-        } else if (node->value == value) {
+        } else if (node->valor == valor) {
             return "x";
         }
 
-        auto sonsL = _find_path(node->left, value);
+        auto sonsE = _encontra_path(node->esquerda, valor);
         
-        if (sonsL != "" && sonsL != "!") {
-            return "l" + sonsL;
+        if (sonsE != "" && sonsE != "!") {
+            return "l" + sonsE;
         }
 
-        auto sonsR = _find_path(node->right, value);
+        auto sonsD = _encontra_path(node->direita, valor);
         
-        if (sonsR != "" && sonsR != "!") {
-            return "r" + sonsR;
+        if (sonsD != "" && sonsD != "!") {
+            return "r" + sonsD;
         }
         
         return "!";
