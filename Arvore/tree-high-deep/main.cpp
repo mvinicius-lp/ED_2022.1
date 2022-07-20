@@ -2,31 +2,30 @@
 #include <sstream>
 #include "functions.hpp"
 
+using namespace std;
+
 int main() {
-    std::string line{};
+   string line{};
 
-    getline(std::cin, line);
+    getline(cin, line);
 
-    BTree tree(line);
+    arv tree(line);
 
-    getline(std::cin, line);
+    getline(cin, line);
 
-    std::stringstream ss(line);
+   stringstream ss(line);
 
-    int value;
+    int valor;
 
-    std::cout << std::endl;
+   cout <<endl;
     
-    while (ss >> value) {
-        Node* node = tree.find(value);
-
-
+    while (ss >> valor) {
+        Node* node = tree.encontrar(valor);
         if (node != nullptr) {
-            std::cout << tree.getHigh(node) << " " << tree.getDeep(value) << std::endl;
+           cout << tree.getCima(node) << " " << tree.getBaixo(valor) <<endl;
         } else {
-            std::cout << "-1" << std::endl;
+           cout << "-1" <<endl;
         }
     }
-
     return 0;
 }

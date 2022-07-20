@@ -4,6 +4,8 @@
 #include <iostream>
 #include <sstream>
 
+using namespace std;
+
 struct Node {
     int value;
     Node* left;
@@ -17,21 +19,21 @@ struct BTree {
 
     BTree() {}
 
-    BTree(std::string &serial) {      
-        std::stringstream ss(serial);
+    BTree(string &serial) {      
+        stringstream ss(serial);
         
         this->root = extract_serial(ss);
     }
 
-    Node* extract_serial(std::stringstream &ss) {
-        std::string element {};
+    Node* extract_serial(stringstream &ss) {
+        string element {};
         ss >> element;
 
         if (element == "#") {
             return nullptr;
         }
         
-        int value = std::stoi(element);
+        int value = stoi(element);
         
         Node* node = new Node(value);
 
@@ -42,16 +44,16 @@ struct BTree {
     }
 
     ~BTree() {
-        __destroy(this->root);
+        __Destruir(this->root);
     }
 
-    void __destroy(Node* node) {
+    void __Destruir(Node* node) {
         if (node == nullptr) {
             return;
         }
 
-        __destroy(node->left);
-        __destroy(node->right);
+        __Destruir(node->left);
+        __Destruir(node->right);
 
         delete node;
     }
@@ -62,20 +64,20 @@ struct BTree {
 
     void __show(Node* node, int level = 0) {
         if (node == nullptr) {
-            std::cout << std::string(level * 4, '.')  << "#" << std::endl;
+            cout << string(level * 4, '.')  << "#" << endl;
             return;
         }
 
         if (node->left != nullptr || node->right != nullptr) {
             __show(node->left, level + 1);
 
-            std::cout << std::string(level * 4, '.') << node->value << std::endl;
+            cout << string(level * 4, '.') << node->value << endl;
 
             __show(node->right, level + 1);
 
             return;
         } 
         
-        std::cout << std::string(level * 4, '.') << node->value << std::endl;
+        cout << string(level * 4, '.') << node->value << endl;
     }
 };

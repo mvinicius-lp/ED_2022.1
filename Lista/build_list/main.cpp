@@ -2,25 +2,26 @@
 #include <sstream>
 #include "functions.hpp"
 
+using namespace std;
 
 int main() {
     List ll;
 
     while(true) {
-        std::string line, cmd;
+        string line, cmd;
         int value;
 
-        getline(std::cin, line);
+        getline(cin, line);
 
-        std::cout << "$" << line << std::endl;
+        cout << "$" << line << endl;
 
-        std::stringstream ss(line);
+        stringstream ss(line);
         ss >> cmd;
 
         if(cmd == "end") {
             break;
         } else if(cmd == "show") {
-            std::cout << ll << std::endl;
+            cout << ll << endl;
         } else if(cmd == "push_back") {
             while(ss >> value)
                 ll.push_back(value);
@@ -32,7 +33,7 @@ int main() {
         } else if(cmd == "pop_front") {
             ll.pop_front();
         } else if(cmd == "size") {
-            std::cout << ll.size() << std::endl;
+            cout << ll.size() << endl;
         }
     }
 

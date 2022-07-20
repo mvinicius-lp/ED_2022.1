@@ -1,20 +1,22 @@
 #include <iostream>
 #include "functions.hpp"
 
+using namespace std;
+
 int main() {
-    std::string line{};
+    string line{};
 
-    getline(std::cin, line);
+    getline(cin, line);
 
-    BTree tree(line);
+    arv tree(line);
 
-    std::cout << std::endl;
+    cout << endl;
 
-    tree.show_in_order();
+    tree.mostrar_ordem();
 
-    std::cout << std::endl;
+    cout << endl;
     
-    tree.show();
+    tree.mostra();
 
     return 0;
 }

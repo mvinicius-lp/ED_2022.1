@@ -3,89 +3,90 @@
 #include <iostream>
 #include <sstream>
 
-struct Node {
-    int value;
-    Node* left;
-    Node* right;
+using namespace std;
 
-    Node(int value, Node* left = nullptr, Node* right = nullptr) : value(value), left(left), right(right) {} 
+struct Node {
+    int valor;
+    Node* esquerda;
+    Node* direita;
+    Node(int valor, Node* esquerda = nullptr, Node* direita = nullptr) : valor(valor), esquerda(esquerda), direita(direita) {} 
 };
 
-struct BTree {
+struct arv {
     Node* root {nullptr};
 
-    BTree() {}
+    arv() {}
 
-    BTree(std::string &serial) {
-        std::stringstream ss(serial);
+    arv(string &serial) {
+        stringstream ss(serial);
         
-        this->root = extract_serial(ss);
+        this->root = ext_serial(ss);
     }
 
-    ~BTree() {
-        __destroy(this->root);
+    ~arv() {
+        destruir(this->root);
     }
 
-    void __destroy(Node* node) {
+    void destruir(Node* node) {
         if (node == nullptr) {
             return;
         }
 
-        __destroy(node->left);
-        __destroy(node->right);
+        destruir(node->esquerda);
+        destruir(node->direita);
 
         delete node;
     }
 
-    Node* extract_serial(std::stringstream &ss) {
-        std::string element {};
-        ss >> element;
+    Node* ext_serial(stringstream &ss) {
+        string elemento {};
+        ss >> elemento;
 
-        if (element == "#") {
+        if (elemento == "#") {
             return nullptr;
         }
 
-        int value = std::stoi(element);
+        int valor = stoi(elemento);
 
-        Node* node = new Node(value);
+        Node* node = new Node(valor);
 
-        node->left = extract_serial(ss);
-        node->right = extract_serial(ss);
+        node->esquerda = ext_serial(ss);
+        node->direita = ext_serial(ss);
 
         return node;
     }
-
-    int sum() {
-        return __sum(root);
+//somas
+    int soma() {
+        return somar(root);
     }
 
-    int __sum(Node* node) {
+    int somar(Node* node) {
         if (node == nullptr) {
             return 0;
         }
 
-        return __sum(node->left) + __sum(node->right) + node->value;
+        return somar(node->esquerda) + somar(node->direita) + node->valor;
     }
 
     int min() {
-        return __min(root);
+        return minimo(root);
     }
-
-    int __min(Node* node) {
+//retornar o minimo
+    int minimo(Node* node) {
         if (node == nullptr) {
             return 0;
         }
 
-        int value_min {node->value};
+        int valor_min {node->valor};
 
-        if (node->left != nullptr) {
-            value_min = std::min(value_min, __min(node->left));
+        if (node->esquerda != nullptr) {
+            valor_min = min(valor_min, minimo(node->esquerda));
         } 
 
-        if (node->right != nullptr) {
-            value_min = std::min(value_min, __min(node->right));
+        if (node->direita != nullptr) {
+            valor_min = min(valor_min, minimo(node->direita));
         }
 
-        return value_min;
+        return valor_min;
     }
 };

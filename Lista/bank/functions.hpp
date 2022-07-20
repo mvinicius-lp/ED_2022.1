@@ -1,26 +1,30 @@
+//funçoes
 #pragma once
-
 #include <iostream>
 #include <list>
 #include <vector>
 
+using namespace std;
+
+//cria struct cliente
 struct Cliente {
-    std::string nome;
+    string nome;
     int docs;
     int paciencia;
 
-    Cliente(std::string nome, int docs, int paciencia) : nome(nome), docs(docs), paciencia(paciencia) {}
+    Cliente(string nome, int docs, int paciencia) : nome(nome), docs(docs), paciencia(paciencia) {}
 
-    std::string str() {
-        return nome + ":" + std::to_string(docs) + ":" + std::to_string(paciencia); 
+    string str() {
+        return nome + ":" + to_string(docs) + ":" + to_string(paciencia); 
     }
 };
 
+//cria banco e seus parametros
 class Banco {
 private:
-    std::vector<Cliente*> caixas;
-    std::list<Cliente*> fila_entrada {};
-    std::list<Cliente*> fila_saida {};
+    vector<Cliente*> caixas;
+    list<Cliente*> fila_entrada {};
+    list<Cliente*> fila_saida {};
     int docs_received {0};
     int docs_lost {0};
     int tics {0};
@@ -95,25 +99,25 @@ public:
 
         ++tics;
     }
-
+    //show parametros
     void show_all() {
         for(auto &client : this->caixas) {
-            std::cout << "[" << (client == nullptr ? "" : client->str()) << "]";
+            cout << "[" << (client == nullptr ? "" : client->str()) << "]";
         }
         
-        std::cout << "\nin :{ ";
+        cout << "\nin :{ ";
         
         for(auto &client : this->fila_entrada)
-            std::cout << (client == nullptr ? "" : client->str()) << " ";
+            cout << (client == nullptr ? "" : client->str()) << " ";
         
-        std::cout << "}\nout:{ ";
+        cout << "}\nout:{ ";
         
         for(auto &client : this->fila_saida)
-            std::cout << (client == nullptr ? "" : client->str()) << " ";
+            cout << (client == nullptr ? "" : client->str()) << " ";
         
-        std::cout << "}\n";
+        cout << "}\n";
     }
-
+    //gets
     int get_received() {
         return this->docs_received;
     }

@@ -2,12 +2,14 @@
 #include <algorithm>
 #include <list>
 
-std::list<char> criar_texto() {
-    std::string line {};
+using namespace std;
 
-    std::getline(std::cin, line);
+list<char> criar_texto() {
+    string line {};
 
-    std::list<char> texto {};
+    getline(cin, line);
+
+    list<char> texto {};
 
     int contador = 0;
 
@@ -34,17 +36,17 @@ std::list<char> criar_texto() {
     return texto;
 }
 
-void imprime_texto(std::list<char> &texto) {
+void imprime_texto(list<char> &texto) {
     for (auto &elemento : texto) {
-        std::cout << elemento;
+        cout << elemento;
     }
 }
 
-void edita_texto(std::list<char> &texto) {
+void edita_texto(list<char> &texto) {
     auto cursor = texto.begin();
     int count = 0;
 
-    std::list<char> caracteres {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'x', 'y', 'w', 'z', '-'};
+    list<char> caracteres {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'x', 'y', 'w', 'z', '-'};
 
     for (auto it = texto.begin(); it != texto.end(); it++) {
         for (auto it = texto.begin(); it != texto.end(); it++) {
@@ -81,8 +83,8 @@ void edita_texto(std::list<char> &texto) {
             }
         } else if (*it == '>') {
             if (*cursor != texto.back()) {
-                if (*(std::next(cursor)) == '>') {
-                    while (it != std::prev(texto.end())) {
+                if (*(next(cursor)) == '>') {
+                    while (it != prev(texto.end())) {
                         it = texto.erase(it);
                     }
                     break;
@@ -120,7 +122,7 @@ void edita_texto(std::list<char> &texto) {
                 --it;
             }
         } else if (count >= 1) {
-            if (std::find(caracteres.begin(), caracteres.end(), *it) != caracteres.end()) {
+            if (find(caracteres.begin(), caracteres.end(), *it) != caracteres.end()) {
                 texto.insert(cursor, *it);
 
                 it = texto.erase(it);

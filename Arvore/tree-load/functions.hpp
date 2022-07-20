@@ -1,3 +1,4 @@
+//funções
 #pragma once
 
 #include <iostream>
