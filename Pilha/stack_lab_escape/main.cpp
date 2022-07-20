@@ -2,16 +2,18 @@
 #include <vector>
 #include "functions.hpp"
 
+using namespace std;
+
 int main() {
     int nl, nc;
 
-    std::cin >> nl >> nc;
-    std::cin.ignore();
+    cin >> nl >> nc;
+    cin.ignore();
 
-    std::vector<std::string> matriz(nl);
+    vector<string> matriz(nl);
 
     for (int linha = 0; linha < nl; linha++) {
-        std::getline(std::cin, matriz[linha]);
+        getline(cin, matriz[linha]);
     }
 
     Pos inicio(0,0);

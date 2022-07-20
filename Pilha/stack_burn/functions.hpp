@@ -4,11 +4,13 @@
 #include <vector>
 #include <stack>
 
-void imprime(std::vector<std::string> &matriz) {
-    std::cout << "=======\n";
+using namespace std;
+
+void imprime(vector<string> &matriz) {
+    cout << "=======\n";
 
     for(auto percorre : matriz)
-        std::cout << percorre << std::endl;
+        cout << percorre << endl;
 }
 
 struct Pos {
@@ -17,13 +19,13 @@ struct Pos {
     Pos(int l, int c) : l(l), c(c) {}
 };
 
-std::vector<Pos> vizinhos(Pos p) {
+vector<Pos> vizinhos(Pos p) {
     auto [l,c] = p;
 
     return {{l, c - 1}, {l - 1, c}, {l, c + 1}, {l + 1, c}};
 }
-
-void queimar(std::vector<std::string> &matriz, Pos p) {
+//queimar
+void queimar(vector<string> &matriz, Pos p) {
     int nl = matriz.size();
     int nc = matriz[0].size();
 
@@ -33,7 +35,7 @@ void queimar(std::vector<std::string> &matriz, Pos p) {
         return;
     }
 
-    std::stack<Pos> queimando {};
+    stack<Pos> queimando {};
 
     matriz[l][c] = 'o';
 
@@ -47,11 +49,8 @@ void queimar(std::vector<std::string> &matriz, Pos p) {
                 continue;
             } else if (matriz[elemento.l][elemento.c] == '#') {
                 matriz[elemento.l][elemento.c] = 'o';
-
                 queimando.push(elemento);
-
                 queimou = true;
-
                 break;
             }
         }

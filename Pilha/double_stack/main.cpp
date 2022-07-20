@@ -2,41 +2,43 @@
 #include <list>
 #include <stack>
 
-void coloca_prateleira(std::stack<int> &deposito, std::stack<int> &prateleira) {
-    while (deposito.size() > 0) {
+using namespace std;
+
+void coloca_prateleira(stack<int> &deposito, stack<int> &prateleira) {
+    while (deposito.tam() > 0) {
         prateleira.push(deposito.top());
         deposito.pop();
     }
 }
 
 int main() {
-    std::stack<int> deposito {}, prateleira {};
+    stack<int> deposito {}, prateleira {};
 
-    int size, comand, elemento;
+    int tam, comando, elemento;
 
-    std::cin >> size;
+    cin >> tam;
 
-    std::list<int> prints {};
+    list<int> prints {};
 
-    for (int i = 0; i < size; i++) {
-        std::cin >> comand;
+    for (int i = 0; i < tam; i++) {
+        cin >> comando;
 
-        if (comand == 1) {
-            std::cin >> elemento;
+        if (comando == 1) {
+            cin >> elemento;
             deposito.push(elemento);
-        } else if (comand == 2) {
-            if (prateleira.size() == 0) coloca_prateleira(deposito, prateleira);
+        } else if (comando == 2) {
+            if (prateleira.tam() == 0) coloca_prateleira(deposito, prateleira);
             prateleira.pop();
-        } else if (comand == 3) {
-            if (prateleira.size() == 0) coloca_prateleira(deposito, prateleira);
+        } else if (comando == 3) {
+            if (prateleira.tam() == 0) coloca_prateleira(deposito, prateleira);
             prints.push_back(prateleira.top());    
         }
     }
 
-    std::cout << "=========" << std::endl;
+    cout << "=========" << endl;
     
     for (auto x : prints) {
-        std::cout << x << std::endl;
+        cout << x << endl;
     }
 
     return 0;

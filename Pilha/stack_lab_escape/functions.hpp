@@ -5,11 +5,13 @@
 #include <list>
 #include <stack>
 
-void imprime(std::vector<std::string> &matriz) {
-    std::cout << "=======\n";
+using namespace std;
+
+void imprime(vector<string> &matriz) {
+    cout << "=======\n";
 
     for(auto percorre : matriz)
-        std::cout << percorre << std::endl;
+        cout << percorre << endl;
 }
 
 struct Pos{
@@ -17,7 +19,7 @@ struct Pos{
 
     Pos(int l, int c) : l(l), c(c) {}
 
-    bool operator==(Pos x) {
+    bool operador==(Pos x) {
         if (x.l == this->l && x.c == this->c) {
             return true;
         }
@@ -25,7 +27,7 @@ struct Pos{
     }
 };
 
-void procura_inicio_fim(std::vector<std::string> &lab, Pos &inicio, Pos &final) {
+void procura_inicio_fim(vector<string> &lab, Pos &inicio, Pos &final) {
     for (int l = 0; l < int (lab.size() - 1); l++) {
         for (int c = 0; c < int (lab[0].size() - 1); c++) {
             if (lab[l][c] == 'I') {
@@ -42,27 +44,27 @@ void procura_inicio_fim(std::vector<std::string> &lab, Pos &inicio, Pos &final) 
     }
 }
 
-std::vector<Pos> vizinhos(Pos p) {
+vector<Pos> vizinhos(Pos p) {
     auto [l,c] = p;
 
     return {{l, c - 1}, {l - 1, c}, {l, c + 1}, {l + 1, c}};
 }
 
-void caminhar(std::vector<std::string> &matriz, Pos &inicio, Pos &fim) {
+void caminhar(vector<string> &matriz, Pos &inicio, Pos &fim) {
     int nl = matriz.size();
     int nc = matriz[0].size();
 
     auto [l,c] = inicio;
 
-    std::stack<Pos> caminhando;
-    std::stack<std::list<Pos>> neigs;
+    stack<Pos> caminhando;
+    stack<list<Pos>> neigs;
 
     matriz[l][c] = '.';
 
     caminhando.push(inicio);
 
     while (caminhando.empty() != true) {
-        std::list<Pos> vizinhos_atuais {};
+        list<Pos> vizinhos_atuais {};
         
         if (caminhando.top() == fim) {
             return;
